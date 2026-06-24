@@ -47,6 +47,14 @@ Ask the user explicitly. Record the answers.
 | Consecutive failures before switching direction? | Default: 3 |
 | Total failures before stopping? | Default: 5 (across all directions) |
 
+### Tips on choosing metrics
+
+Picking the right evaluation metric is critical. A bad metric leads to false confidence or biased comparisons.
+
+- **Metric neutrality.** Make sure your metric doesn't favor one approach structurally. For example, `val_bpb` is vocab-size-independent so architecture changes can be fairly compared; "lines of code" rewards compression but may harm readability. If in doubt, use multiple complementary metrics.
+- **Multiple runs, report median.** For noisy metrics (latency, throughput, memory), run 3-5 times and report median + min/max. Never cherry-pick the best run.
+- **Beware of proxy metrics.** Fewer lines of code does not equal better maintainability. Lower training loss does not guarantee better generalization. Prefer metrics that directly measure the goal, or use a battery of them.
+
 ### 1d. Run baseline evaluation
 
 Run the agreed-upon evaluation on the current (unchanged) code. This is the **baseline**.
